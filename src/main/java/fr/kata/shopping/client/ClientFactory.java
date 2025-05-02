@@ -5,7 +5,6 @@ import fr.kata.shopping.pricing.ProfessionalHighRevenuePricingStrategy;
 import fr.kata.shopping.pricing.ProfessionalLowRevenuePricingStrategy;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 public class ClientFactory {
     public static Client createIndividualClient(String id, String firstName, String lastName) {
@@ -16,7 +15,6 @@ public class ClientFactory {
         PricingStrategy strategy = revenue.compareTo(BigDecimal.valueOf(10_000_000))>0
                 ? new ProfessionalHighRevenuePricingStrategy()
                 : new ProfessionalLowRevenuePricingStrategy();
-
         return new ProfessionalClient(id, companyName, tvaNumber, siren, revenue,strategy);
     }
 }

@@ -3,7 +3,6 @@ package fr.kata.shopping.client;
 import fr.kata.shopping.pricing.PricingStrategy;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 public class ProfessionalClient implements Client {
     private final String id;
