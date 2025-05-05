@@ -2,6 +2,13 @@ package fr.kata.shopping.service;
 
 import fr.kata.shopping.client.Client;
 import fr.kata.shopping.client.ClientFactory;
+import fr.kata.shopping.client.ClientId;
+import fr.kata.shopping.client.individual.FirstName;
+import fr.kata.shopping.client.individual.LastName;
+import fr.kata.shopping.client.professional.CompanyName;
+import fr.kata.shopping.client.professional.Revenue;
+import fr.kata.shopping.client.professional.Siren;
+import fr.kata.shopping.client.professional.TvaNumber;
 import fr.kata.shopping.product.Product;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +21,7 @@ class CartServiceTest {
 
     @Test
     void testCalculateCartTotalForIndividualClient() {
-        Client client = ClientFactory.createIndividualClient("C123", "Jean", "Dupont");
+        Client client = ClientFactory.createIndividualClient(ClientId.of("C123"), FirstName.of("Jean"), LastName.of("Dupont"));
         CartService cartService = new CartService();
 
         Map<Product, Integer> cart = Map.of(
@@ -32,7 +39,7 @@ class CartServiceTest {
 
     @Test
     void testCalculateCartTotalForProfessionalClientHighRevenue() {
-        Client client = ClientFactory.createProfessionalClient("P456", "TechCorp", "FR123456789", "123456789", new BigDecimal(15_000_000));
+        Client client = ClientFactory.createProfessionalClient(ClientId.of("P456"), CompanyName.of("TechCorp"), TvaNumber.of("FR123456789"), Siren.of("123456789"), Revenue.of(15_000_000));
         CartService cartService = new CartService();
 
         Map<Product, Integer> cart = Map.of(
@@ -50,7 +57,7 @@ class CartServiceTest {
 
     @Test
     void testCalculateCartTotalForProfessionalClientLowRevenue() {
-        Client client = ClientFactory.createProfessionalClient("P789", "StartupX", null, "987654321", new BigDecimal(5_000_000));
+        Client client = ClientFactory.createProfessionalClient(ClientId.of("P789"), CompanyName.of("StartupX"), null, Siren.of("987654321"), Revenue.of(5_000_000));
         CartService cartService = new CartService();
 
         Map<Product, Integer> cart = Map.of(
@@ -68,7 +75,7 @@ class CartServiceTest {
 
     @Test
     void testCalculateCartTotalForBoundaryRevenueProfessionalClient() {
-        Client client = ClientFactory.createProfessionalClient("P999", "BoundaryCorp","FR999999999", "567891234", new BigDecimal(10_000_000));
+        Client client = ClientFactory.createProfessionalClient(ClientId.of("P999"), CompanyName.of("BoundaryCorp"), TvaNumber.of("FR999999999"), Siren.of("567891234"), Revenue.of(10_000_000));
         CartService cartService = new CartService();
 
         Map<Product, Integer> cart = Map.of(
